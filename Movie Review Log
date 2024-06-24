@@ -1,0 +1,45 @@
+import csv
+
+# Function to add a movie review
+def add_movie_review():
+    movie_name = input("Enter the movie name: ")
+    rating = input("Enter your rating (1-5): ")
+    review = input("Enter your review: ")
+
+    with open('movie_reviews.csv', mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([movie_name, rating, review])
+
+    print("Review added successfully!")
+
+# Function to view all movie reviews
+def view_movie_reviews():
+    try:
+        with open('movie_reviews.csv', mode='r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                print(f"Movie: {row[0]}, Rating: {row[1]}, Review: {row[2]}")
+    except FileNotFoundError:
+        print("No reviews found. Please add some reviews first.")
+
+# Main program loop
+def main():
+    while True:
+        print("\nMovie Review Logger")
+        print("1. Add a Movie Review")
+        print("2. View Movie Reviews")
+        print("3. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            add_movie_review()
+        elif choice == '2':
+            view_movie_reviews()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
